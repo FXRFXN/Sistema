@@ -281,7 +281,7 @@ if (isset($_SESSION['u_usuario'])) {
                                                                     
                                                             <div class="form-group" class="col-sm2 control-label">
                                                                 <label for="status">Seleccionar estado</label>
-                                                                <select name="acreditacion" id="status" class="form-control" value="<?php echo $filas['id_incidencia']; ?>">
+                                                                <select name="acreditacion" id="status" class="form-control">
                                                                     <option value="">Elegir una Opcion</option>
                                                                     <option value="1" <?= (isset($incidencia) && $incidencia == 1) ? 'selected' : '' ?>>Acreditado</option>
                                                                     <option value="0" <?= (isset($incidencia) && $incidencia == 2) ? 'selected' : '' ?>>No acreditado</option>
