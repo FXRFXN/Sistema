@@ -45,7 +45,7 @@ $conect = new mysqli($server,$user,$pass,$bd);
 
 try {
 	
-	$con=new PDO('mysql:host=localhost;dbname='.$database,$user,$password);
+	$con=new PDO('mysql:host=by7mu16zhz1zguk9nqso-mysql.services.clever-cloud.com;dbname='.$database,$user,$password);
 
 } catch (PDOException $e) {
 	echo "Error".$e->getMessage();
