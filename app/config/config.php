@@ -1,9 +1,9 @@
 <?php
-$conexion = mysqli_connect("viaduct.proxy.rlwy.net", "root", "5-B3gaCgCAeHach15gcFF5CAEcD3ddFg", "railway");
- 
- 
+$conexion = mysqli_connect("by7mu16zhz1zguk9nqso-mysql.services.clever-cloud.com", "uquyebwfnkfaejgs", "C0H6Hq1YtpqhkUdy9lKf", "by7mu16zhz1zguk9nqso");
+
+
 ?>
- 
+
 <?php
 /**
  * Created by PhpStorm.
@@ -11,16 +11,16 @@ $conexion = mysqli_connect("viaduct.proxy.rlwy.net", "root", "5-B3gaCgCAeHach15g
  * Date: 01/07/2020
  * Time: 16:41
  */
- 
-define('SERVIDOR','viaduct.proxy.rlwy.net');
-define('USUARIO','root');
-define('PASSWOD','5-B3gaCgCAeHach15gcFF5CAEcD3ddFg');
-define('BD','railway');
- 
-$URL = 'https://sistema-production-938c.up.railway.app/';
- 
+
+define('SERVIDOR','by7mu16zhz1zguk9nqso-mysql.services.clever-cloud.com');
+define('USUARIO','uquyebwfnkfaejgs');
+define('PASSWOD','C0H6Hq1YtpqhkUdy9lKf');
+define('BD','by7mu16zhz1zguk9nqso');
+
+$URL = 'mysql://uquyebwfnkfaejgs:C0H6Hq1YtpqhkUdy9lKf@by7mu16zhz1zguk9nqso-mysql.services.clever-cloud.com:3306/by7mu16zhz1zguk9nqso';
+
 $servidor = "mysql:dbname=".BD.";host=".SERVIDOR;
- 
+
 try{
     $pdo = new PDO($servidor,USUARIO,PASSWOD,array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
     // echo "<script>alert('La conexiÃ³n a la base de datos fue exitosa.')</script>";
@@ -28,34 +28,34 @@ try{
     echo "<script>alert('Error a la conexiÃ³n con la base de datos')</script>";
 }
 ?>
- 
+
 <?php
-$server = "viaduct.proxy.rlwy.net";
-$user = "root";
-$pass = "5-B3gaCgCAeHach15gcFF5CAEcD3ddFg";
-$bd = "railway";
- 
+$server = "by7mu16zhz1zguk9nqso-mysql.services.clever-cloud.com";
+$user = "uquyebwfnkfaejgs";
+$pass = "C0H6Hq1YtpqhkUdy9lKf";
+$bd = "by7mu16zhz1zguk9nqso";
+
 $conect = new mysqli($server,$user,$pass,$bd);
 ?>
 <?php
-    $database="railway";
-    $user='root';
-    $password='5-B3gaCgCAeHach15gcFF5CAEcD3ddF';
- 
- 
+	$database="by7mu16zhz1zguk9nqso";
+	$user='uquyebwfnkfaejgs';
+	$password='C0H6Hq1YtpqhkUdy9lKf';
+
+
 try {
-   
-    $con=new PDO('mysql:host=localhost;dbname='.$database,$user,$password);
- 
+	
+	$con=new PDO('mysql:host=localhost;dbname='.$database,$user,$password);
+
 } catch (PDOException $e) {
-    echo "Error".$e->getMessage();
+	echo "Error".$e->getMessage();
 }
- 
+
 ?>
 <?php
 try
 {
-    $bdd = new PDO('mysql:host=viaduct.proxy.rlwy.net;dbname=railway;charset=utf8', 'root', '5-B3gaCgCAeHach15gcFF5CAEcD3ddF');
+	$bdd = new PDO('mysql:host=by7mu16zhz1zguk9nqso-mysql.services.clever-cloud.com;dbname=by7mu16zhz1zguk9nqso;charset=utf8', 'uquyebwfnkfaejgs', 'C0H6Hq1YtpqhkUdy9lKf');
 }
 catch(Exception $e)
 {
