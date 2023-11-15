@@ -1,9 +1,9 @@
 <?php
-$conexion = mysqli_connect("localhost", "root", "", "sistema");
-
-
+$conexion = mysqli_connect("viaduct.proxy.rlwy.net", "root", "5-B3gaCgCAeHach15gcFF5CAEcD3ddFg", "railway");
+ 
+ 
 ?>
-
+ 
 <?php
 /**
  * Created by PhpStorm.
@@ -11,16 +11,16 @@ $conexion = mysqli_connect("localhost", "root", "", "sistema");
  * Date: 01/07/2020
  * Time: 16:41
  */
-
-define('SERVIDOR','localhost');
+ 
+define('SERVIDOR','viaduct.proxy.rlwy.net');
 define('USUARIO','root');
-define('PASSWOD','');
-define('BD','sistema');
-
-$URL = 'http://localhost/tecnm';
-
+define('PASSWOD','5-B3gaCgCAeHach15gcFF5CAEcD3ddFg');
+define('BD','railway');
+ 
+$URL = 'https://sistema-production-938c.up.railway.app/';
+ 
 $servidor = "mysql:dbname=".BD.";host=".SERVIDOR;
-
+ 
 try{
     $pdo = new PDO($servidor,USUARIO,PASSWOD,array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
     // echo "<script>alert('La conexiÃ³n a la base de datos fue exitosa.')</script>";
@@ -28,34 +28,34 @@ try{
     echo "<script>alert('Error a la conexiÃ³n con la base de datos')</script>";
 }
 ?>
-
+ 
 <?php
-$server = "localhost";
+$server = "viaduct.proxy.rlwy.net";
 $user = "root";
-$pass = "";
-$bd = "sistema";
-
+$pass = "5-B3gaCgCAeHach15gcFF5CAEcD3ddFg";
+$bd = "railway";
+ 
 $conect = new mysqli($server,$user,$pass,$bd);
 ?>
 <?php
-	$database="sistema";
-	$user='root';
-	$password='';
-
-
+    $database="railway";
+    $user='root';
+    $password='5-B3gaCgCAeHach15gcFF5CAEcD3ddF';
+ 
+ 
 try {
-	
-	$con=new PDO('mysql:host=localhost;dbname='.$database,$user,$password);
-
+   
+    $con=new PDO('mysql:host=localhost;dbname='.$database,$user,$password);
+ 
 } catch (PDOException $e) {
-	echo "Error".$e->getMessage();
+    echo "Error".$e->getMessage();
 }
-
+ 
 ?>
 <?php
 try
 {
-	$bdd = new PDO('mysql:host=localhost;dbname=sistema;charset=utf8', 'root', '');
+    $bdd = new PDO('mysql:host=viaduct.proxy.rlwy.net;dbname=railway;charset=utf8', 'root', '5-B3gaCgCAeHach15gcFF5CAEcD3ddF');
 }
 catch(Exception $e)
 {
