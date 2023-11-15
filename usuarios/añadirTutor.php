@@ -43,11 +43,28 @@ $id_carrera = $sesion_usuario['carrera'];
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-<?php
 
-$sql = "SELECT * FROM `tb_usuarios` LEFT JOIN grupos ON grupos.id=tb_usuarios.grupo WHERE cargo = 1";
-$resultado = mysqli_query($conexion, $sql);
-?>
+<?php 
+ if(!empty($_REQUEST["nume"])){ $_REQUEST["nume"] = $_REQUEST["nume"];}else{ $_REQUEST["nume"] = '1';}
+ if($_REQUEST["nume"] == "" ){$_REQUEST["nume"] = "1";}
+ $articulos=mysqli_query($conexion,"SELECT * FROM tb_usuarios
+ LEFT JOIN grupos ON grupos.id_grupos = tb_usuarios.grupo
+ WHERE cargo = 1");
+ $num_registros=@mysqli_num_rows($articulos);
+ $registros= '5';
+ $pagina=$_REQUEST["nume"];
+ if (is_numeric($pagina))
+ $inicio= (($pagina-1)*$registros);
+ else
+ $inicio=0;
+ $busqueda=mysqli_query($conexion,"SELECT * FROM tb_usuarios
+ LEFT JOIN grupos ON grupos.id_grupos = tb_usuarios.grupo
+ WHERE cargo = 1 LIMIT $inicio,$registros;");
+ $paginas=ceil($num_registros/$registros);
+  
+  ?>
+
+
 
 
 
@@ -58,8 +75,7 @@ $resultado = mysqli_query($conexion, $sql);
 <!-- Content Header (Page header) -->
 <section class="content-header">
 <h1>
-Asignacion de tutores
-</section>
+RELACIÓN DE TUTORES</section>
 
 
 <!-- Main content 
@@ -89,13 +105,17 @@ Nuevo Tutor
 <th>Nombre</th>
 <th>Apellido materno</th>
 <th>Apellido paterno</th>
-   <th>Grupo asignado</th>
+<th>Carrera</th>
+<th>Semestre</th>
+<th>Grupo</th>
+<th>Horario</th>
+
 
 
 
 
 <?php
-while ($filas = mysqli_fetch_assoc($resultado)) {
+while ($filas = mysqli_fetch_assoc($busqueda)) {
 ?>
  
 <tr>
@@ -103,7 +123,8 @@ while ($filas = mysqli_fetch_assoc($resultado)) {
 <td><?php echo $filas['nombres'] ?></td>
 <td><?php echo $filas['ap_paterno'] ?></td>
 <td><?php echo $filas['ap_materno'] ?></td>
-  
+
+
  
 
 <td>
@@ -115,9 +136,14 @@ echo 'Aun no existe grupo asignado';
 echo $filas['carrera'] ;
 }
 ?>
+<td><?php echo $filas['semestre'] ?></td>
+<td><?php echo $filas['grupo'] ?></td>
+<td><?php echo $filas['dias_tutoria'].' '. $filas['hora_inicio'] .' '.$filas['hora_fin'] ?></td>
 
+</td>
 
-
+<td>
+ <?php include('../usuarios/modaltutor.php'); ?>
 </td>
 
 
@@ -152,6 +178,38 @@ echo $filas['carrera'] ;
 
 </table>
 </div>
+<!-- paginacion //////////////////////////////////////-->
+<div class="container-fluid  col-12">
+        <ul class="pagination pg-dark d-flex justify-content-center align-items-center" style="float: none;" >
+            <li class="page-item">
+            <?php
+            if($_REQUEST["nume"] == "1" ){
+            $_REQUEST["nume"] == "0";
+            echo  "";
+            }else{
+            if ($pagina>1)
+            $ant = $_REQUEST["nume"] - 1;
+            echo "<a class='page-link' aria-label='Previous' href='añadirTutor.php?nume=1'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a>"; 
+            echo "<li class='page-item '><a class='page-link' href='añadirTutor.php?nume=". ($pagina-1) ."' >".$ant."</a></li>"; }
+            echo "<li class='page-item active'><a class='page-link' >".$_REQUEST["nume"]."</a></li>"; 
+            $sigui = $_REQUEST["nume"] + 1;
+            $ultima = $num_registros / $registros;
+            if ($ultima == $_REQUEST["nume"] +1 ){
+            $ultima == "";}
+            if ($pagina<$paginas && $paginas>1)
+            echo "<li class='page-item'><a class='page-link' href='añadirTutor.php?nume=". ($pagina+1) ."'>".$sigui."</a></li>"; 
+            if ($pagina<$paginas && $paginas>1)
+            echo "
+            <li class='page-item'><a class='page-link' aria-label='Next' href='añadirTutor.php?nume=". ceil($ultima) ."'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a>
+            </li>";
+            ?>
+        </ul>
+    </div>
+<!-- end paginacion ///////////////////////// -->
+
+
+
+
 </div>
 </section>
 

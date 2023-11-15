@@ -28,7 +28,7 @@ foreach ($sesion_usuarios as $sesion_usuario) {
   $id_foto_perfil = $sesion_usuario['foto_perfil'];
 }
 
-$sentenciaSQL = $pdo->prepare("SELECT * FROM constancias WHERE matricula = '$id_numero_control'");
+$sentenciaSQL = $pdo->prepare("SELECT * FROM constancias_tutorias WHERE matricula = '$id_numero_control'");
 $sentenciaSQL->execute();
 $datos_alumno = $sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
@@ -45,7 +45,7 @@ $res = mysqli_query($conexion, $consulta1)  ?>
   </div>
   <br>
   <br>
-  <p style="text-align: center;">CONSTANCIA DE CUMPLIMIENTO DE ACTIVIDAD COMPLEMENTARIA
+  <p style="text-align: center;">CONSTANCIA DE CUMPLIMIENTO DE TUTORIAS
   </p>
   <br>
 

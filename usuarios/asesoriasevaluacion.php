@@ -41,15 +41,8 @@ if (isset($_SESSION['u_usuario'])) {
 ?>
 
   <?php
-  $sqlito =
-    ("SELECT * FROM tb_claseasesoria INNER JOIN tb_tutorias ON tb_tutorias.id = tb_claseasesoria.id_alumnoo WHERE id_asesor = $id_sesion ");
-
-
-
-
-
+  $sqlito ="SELECT * FROM tb_claseasesoria INNER JOIN tb_usuarios ON tb_usuarios.numero_control = tb_claseasesoria.id_alumnoo WHERE id_asesor = 113";
   $resultado = mysqli_query($conexion, $sqlito);
-
 
   ?>
 
@@ -231,8 +224,8 @@ if (isset($_SESSION['u_usuario'])) {
 
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-success">Save changes</button>
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-success">Guardar</button>
                         </div>
                       </div>
                   </div>

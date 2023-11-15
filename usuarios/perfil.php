@@ -37,6 +37,7 @@ foreach ($sesion_usuarios as $sesion_usuario) {
   $id_entidad = $sesion_usuario['entidad'];
   $id_foto_perfil = $sesion_usuario['foto_perfil'];
   $privilegio = $sesion_usuario['cargo'];
+  
 }
 
 //control de inactividad
@@ -127,28 +128,28 @@ if ($tiempo_transcurrido >= 600) {
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-user"></i> NOMBRE(S)</label>
-                        <input type="text" class="form-control" name="nombres" type="text" value="<?php echo $sesion_usuario['nombres']; ?>" required style="text-transform: uppercase;" tabindex="1" disabled>
+                        <input type="text" class="form-control" name="nombres" type="text" value="<?php echo $sesion_usuario['nombres']; ?>"  style="text-transform: uppercase;" tabindex="1" disabled>
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-user"></i> APELLIDO MATERNO</label>
-                        <input type="text" class="form-control" name="ap_materno" value="<?php echo $sesion_usuario['ap_materno']; ?>" required style="text-transform: uppercase;" tabindex="3" disabled>
+                        <input type="text" class="form-control" name="ap_materno" value="<?php echo $sesion_usuario['ap_materno']; ?>"  style="text-transform: uppercase;" tabindex="3" disabled>
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-check"></i> NÚMERO DE CONTROL</label>
-                        <input type="text" class="form-control" name="numero_control" value="<?php echo $sesion_usuario['numero_control']; ?>" required style="text-transform: uppercase;" tabindex="5" disabled>
+                        <input type="text" class="form-control" name="numero_control" value="<?php echo $sesion_usuario['numero_control']; ?>"  style="text-transform: uppercase;" tabindex="5" disabled>
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-envelope"></i> CORREO INSTITUCIONAL</label>
-                        <input type="email" class="form-control" name="correo" value="<?php echo $sesion_usuario['correo']; ?>" required tabindex="7" disabled>
+                        <input type="email" class="form-control" name="correo" value="<?php echo $sesion_usuario['correo']; ?>"  tabindex="7" disabled>
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-calendar"></i> FECHA DE NACIMIENTO</label>
-                        <input type="date" class="form-control" name="fecha_nacimiento" value="<?php echo $sesion_usuario['fecha_nacimiento']; ?>" required tabindex="9">
+                        <input type="date" class="form-control" name="fecha_nacimiento" value="<?php echo $sesion_usuario['fecha_nacimiento']; ?>"  tabindex="9">
                       </div>
                       
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-map-marker"></i> ESTADO</label>
-                        <select name="estados" id="estados" class="form-control" required style="text-transform: uppercase;" tabindex="12">
+                        <select name="estados" id="estados" class="form-control"  style="text-transform: uppercase;" tabindex="12">
                         <option value="">*SELECCIONE ESTADO</option>
                         <?php while ($row = mysqli_fetch_assoc($resultado)) {?>
                             <option value="<?php echo $row ['idEstados'] ?>"><?php echo $row ['estado']?></option>
@@ -158,16 +159,16 @@ if ($tiempo_transcurrido >= 600) {
 
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-phone"></i> TELÉFONO</label>
-                        <input type="text" class="form-control" name="telefono" value="<?php echo $sesion_usuario['telefono']; ?>" required tabindex="11">
+                        <input type="text" class="form-control" name="telefono" value="<?php echo $sesion_usuario['telefono']; ?>"  tabindex="11">
                       </div>
                       
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-map-marker"></i>CALLE</label>
-                        <input type="text" class="form-control" name="calle" value="<?php echo $sesion_usuario['calle']; ?>" required style="text-transform: uppercase;" tabindex="15">
+                        <input type="text" class="form-control" name="calle" value="<?php echo $sesion_usuario['calle']; ?>"  style="text-transform: uppercase;" tabindex="15">
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-education"></i> Nivel Escolar</label>
-                        <select name="nivel_escolar" id="" class="form-control" required>
+                        <select name="nivel_escolar" id="" class="form-control" >
                           <option value="<?php echo $sesion_usuario['nivel_escolar']; ?>"><?php echo $sesion_usuario['nivel_escolar']; ?></option>
                           <option value="Primaria">Primaria</option>
                           <option value="Secundaria">Secundaria</option>
@@ -180,6 +181,12 @@ if ($tiempo_transcurrido >= 600) {
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-picture"></i> FOTO DE PERFIL</label>
                         <input type="file" class="form-control" id="file" name="file" tabindex="22">
+                        <div class="form-group">
+                          
+                        <label for=""><i class="glyphicon glyphicon-education"></i> CRÉDITO TUTORIA</label>
+                        <input type="text" class="form-control" tabindex="21" disabled>
+                      </div>
+                      <br>
                         <center>
                           <br>
                           <output id="list" style="margin-top: 0px"></output>
@@ -189,11 +196,11 @@ if ($tiempo_transcurrido >= 600) {
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-user"></i> APELLIDO PATERNO</label>
-                        <input type="text" class="form-control" name="ap_paterno" value="<?php echo $sesion_usuario['ap_paterno']; ?>" required style="text-transform: uppercase;" tabindex="2" disabled>
+                        <input type="text" class="form-control" name="ap_paterno" value="<?php echo $sesion_usuario['ap_paterno']; ?>"  style="text-transform: uppercase;" tabindex="2" disabled>
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-user"></i> SEXO</label>
-                        <select name="sexo" id="" class="form-control" required style="text-transform: uppercase;" tabindex="4" value="<?php echo $sesion_usuario['sexo']; ?>">
+                        <select name="sexo" id="" class="form-control"  style="text-transform: uppercase;" tabindex="4" value="<?php echo $sesion_usuario['sexo']; ?>">
                           <option value="Hombre">Hombre</option>
                           <option value="Mujer">Mujer</option>
                           <option value="Mujer">Otro</option>
@@ -201,7 +208,7 @@ if ($tiempo_transcurrido >= 600) {
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-book"></i> CARRERA</label>
-                        <select name="carrera" id="" class="form-control" value="<?php echo $sesion_usuario['carrera']; ?>" required style="text-transform: uppercase;" tabindex="6">
+                        <select name="carrera" id="" class="form-control" value="<?php echo $sesion_usuario['carrera']; ?>"  style="text-transform: uppercase;" tabindex="6">
                           <option value="<?php echo $sesion_usuario['carrera']; ?>"><?php echo $sesion_usuario['carrera']; ?></option>
 			  <?php
                           $consulta1 = "SELECT carrera FROM cat_carreras";
@@ -213,30 +220,50 @@ if ($tiempo_transcurrido >= 600) {
                           <?php endforeach ?>
                         </select>
                       </div>
+
+
                       <div class="form-group">
-                        <label for=""><i class="glyphicon glyphicon-modal-window"></i> ESTADO CIVIL</label>
-                        <select name="estado_civil" id="" class="form-control" required style="text-transform: uppercase;" tabindex="8">
-                          <option value="<?php echo $sesion_usuario['estado_civil']; ?>"><?php echo $sesion_usuario['estado_civil']; ?></option>
-                          <option value="Soltero/a">Soltero/a</option>
-                          <option value="Casado/a">Casado/a</option>
-                          <option value="Unión libre">Unión libre</option>
-                          <option value="Separado/a">Separado/a</option>
-                          <option value="Divorciado/a">Divorciado/a</option>
-                          <option value="Viudo/a">Viudo/a</option>
-                        </select>
-                      </div>
+    <label for=""><i class="glyphicon glyphicon-book"></i> SEMESTRE</label>
+    <select name="semestre" id="" class="form-control" style="text-transform: uppercase;" tabindex="6">
+        <option value="elegir">Elegir una Opción</option>
+        <option value="1" <?php if ($sesion_usuario['semestre'] == 1) echo 'selected'; ?>>1</option>
+        <option value="2" <?php if ($sesion_usuario['semestre'] == 2) echo 'selected'; ?>>2</option>
+        <option value="3" <?php if ($sesion_usuario['semestre'] == 3) echo 'selected'; ?>>3</option>
+        <option value="4" <?php if ($sesion_usuario['semestre'] == 4) echo 'selected'; ?>>4</option>
+        <option value="5" <?php if ($sesion_usuario['semestre'] == 5) echo 'selected'; ?>>5</option>
+        <option value="6" <?php if ($sesion_usuario['semestre'] == 6) echo 'selected'; ?>>6</option>
+        <option value="7" <?php if ($sesion_usuario['semestre'] == 7) echo 'selected'; ?>>7</option>
+    </select>
+</div>
+
+
+<div class="form-group">
+    <label for=""><i class="glyphicon glyphicon-book"></i> GRUPO</label>
+    <select name="grupo" id="" class="form-control" style="text-transform: uppercase;" tabindex="6">
+        <option value=""></option>
+        <?php
+        $consulta1 = "SELECT id_grupos, grupo FROM grupos";
+        $res = mysqli_query($conexion, $consulta1);
+        while ($opcion = mysqli_fetch_assoc($res)) {
+            $selected = ($opcion['id_grupos'] == $sesion_usuario['grupo']) ? 'selected' : '';
+            echo "<option value='{$opcion['id_grupos']}' $selected>{$opcion['grupo']}</option>";
+        }
+        ?>
+    </select>
+</div>
+                      
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-link"></i> CURP</label>
-                        <input type="text" class="form-control" name="curp" value="<?php echo $sesion_usuario['curp']; ?>" required style="text-transform: uppercase;" tabindex="10">
+                        <input type="text" class="form-control" name="curp" value="<?php echo $sesion_usuario['curp']; ?>"  style="text-transform: uppercase;" tabindex="10">
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-equalizer"></i> CIUDAD O LOCALIDAD</label>
-                        <select name="municipio" id="municipio" class="form-control" required style="text-transform: uppercase;" tabindex="12"></select>
+                        <select name="municipio" id="municipio" class="form-control"  style="text-transform: uppercase;" tabindex="12"></select>
                       </div>
 
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-equalizer"></i> CÓDIGO POSTAL</label>
-                        <input type="text" class="form-control" name="codigo_postal" value="<?php echo $sesion_usuario['codigo_postal']; ?>" required tabindex="16">
+                        <input type="text" class="form-control" name="codigo_postal" value="<?php echo $sesion_usuario['codigo_postal']; ?>"  tabindex="16">
                       </div>
                       <div class="form-group">
                         <label for=""><i class="glyphicon glyphicon-education"></i> CRÉDITO ACADEMICO</label>
@@ -246,10 +273,7 @@ if ($tiempo_transcurrido >= 600) {
                         <label for=""><i class="glyphicon glyphicon-education"></i> CRÉDITO EXTRAESCOLAR</label>
                         <input type="text" class="form-control" tabindex="20" disabled>
                       </div>
-                      <div class="form-group">
-                        <label for=""><i class="glyphicon glyphicon-education"></i> CRÉDITO TUTORIA</label>
-                        <input type="text" class="form-control" tabindex="21" disabled>
-                      </div>
+                      
                       <br>
                       <div class="form-group">
                         <center>
@@ -276,8 +300,6 @@ if ($tiempo_transcurrido >= 600) {
   <?php include('../layout/footer.php'); ?>
   <?php include('../layout/footer_links.php'); ?>
 
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
 </body>

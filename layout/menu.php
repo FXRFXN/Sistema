@@ -38,7 +38,7 @@
 
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">
                 <?php
                 $caracter_a_buscar = ".";
                 $buscar = strpos($id_foto_perfil, $caracter_a_buscar);

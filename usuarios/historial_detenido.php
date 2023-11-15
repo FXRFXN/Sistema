@@ -43,11 +43,16 @@ $correo_sesion = $_SESSION['u_usuario'];
   <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
   <?php 
-  $sql= "SELECT * FROM tb_incidencia WHERE Estado = '2'";
+  $sql= "SELECT Estado FROM tb_incidencia WHERE Estado = '2'";
   
   $resultado = mysqli_query($conexion,$sql);
 
   $numero = mysqli_num_rows($resultado); 
+
+
+  
+
+
 
   ?>
   <?php include ('../layout/menu.php'); ?>
@@ -58,7 +63,7 @@ $correo_sesion = $_SESSION['u_usuario'];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Incidencias
+        INCIDENCIAS PAUSADAS
       </h1>
      
     </section>
@@ -67,8 +72,8 @@ $correo_sesion = $_SESSION['u_usuario'];
     <section class="content"> 
 
 
- <a href="incidencias.php"><button type="button" class="btn btn-success">Incidencia iniciada: <?php echo $numero ?> </button></a>
-  <a href="historial_proceso.php"><button type="button" class="btn btn-success">Incidencia proceso: <?php echo $numero ?></button></a>
+ <a href="incidencias.php"><button type="button" class="btn btn-success mb-3">INCIDENCIA INCIADA: <?php echo $numero ?> </button></a>
+  <a href="historial_proceso.php"><button type="button" class="btn btn-warning mb-3">INCIDENCIA PROCESO: <?php echo $numero ?></button></a>
                   <!-- Modal -->
 
   <!-- Listado de incidencias -->

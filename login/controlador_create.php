@@ -18,6 +18,19 @@ $user_creacion = "ESCAMILLA";
 date_default_timezone_set("America/Monterrey");
 
 $fechaHora = date('Y-m-d h:i:s');
+
+  // Tu cadena de texto
+$letra_especifica = "L";  // Letra específica que deseas comprobar
+
+if (substr($correo, 0, 1) === $letra_especifica) {
+  $estado = 1;
+  $cargo = 2;
+} else {
+  $estado = 1;
+  $cargo = 1;
+    
+}
+
 $estado = 1;
 $cargo = 2;
 
@@ -32,11 +45,21 @@ $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT, ['cost' => 10]);
 
 $inserta = "INSERT INTO tb_usuarios(nombres, ap_paterno, ap_materno, numero_control, correo, contrasenia, user_creacion, fyh_creacion, estado, cargo) VALUES ('$nombres', '$ap_paterno', '$ap_materno', '$numero_control', '$correo', '$contrasenia', '$user_creacion', '$fechaHora', '$estado', '$cargo')";
 
-$resultado = mysqli_query($conexion, $inserta);
-if (!$resultado) {
-  echo 'Error al registrarse';
-} else {
-  echo 'usuario registrado correctamente';
-  header('Location: ../index.php');
+
+
+    
+$query = $bdd->prepare($inserta);
+if ($query == false) {
+    print_r($bdd->errorInfo());
+    die('Erreur prepare');
+}
+
+$sth = $query->execute();
+
+if ($sth == false) {
+    print_r($query->errorInfo());
+    die('Erreur execute');
 }
 mysqli_close($conexion);
+
+header('Location: perfil.php');

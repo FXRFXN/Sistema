@@ -8,7 +8,7 @@
 
 <header class="main-header">
   <!-- Logo -->
-  <a href="indexuser.php" class="logo">
+  <a href="perfil.php" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>Chiná</b></span>
     <!-- logo for regular state and mobile devices -->
@@ -158,12 +158,6 @@
 
 
 
-
-
-
-
-
-
         <li class="header">Calendario de Actividades</li>
         <li><a href="calendariovista.php"><i class="glyphicon glyphicon-calendar"></i> <span>Elegir Actividad Académica</span></a></li>
 
@@ -180,6 +174,21 @@
 
         <li><a href="actAlum.php"><i class="fa fa-users"></i> <span>Actividades</span></a></li>
         <li><a href="consAlum.php"><i class="fa fa-users"></i> <span>Generar constancia</span></a></li>
+         <li><a href="asesorias_alumno.php"><i class="fa fa-users"></i> <span>Asesorias</span></a></li>
+
+      </ul>
+    </li>
+
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-users"></i> <span>TUTORIAS</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="sidebar-menu treeview-menu">
+
+        <li><a href="generarconstancia_alumno.php"><i class="fa fa-book"></i> <span><b>Constancia tutorias</b></span></a></li>
          <li><a href="asesorias_alumno.php"><i class="fa fa-users"></i> <span>Asesorias</span></a></li>
 
       </ul>

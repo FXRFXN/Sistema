@@ -7,18 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <?php
-    $tutor_sql = "SELECT * FROM `tb_usuarios` WHERE cargo = 1;";
+    $tutor_sql = "SELECT * FROM grupos";
     $resultado_tutor = mysqli_query($conexion, $tutor_sql);
     ?>
 </head>
 
 <body>
 
+
+
+<?php
+if($filas['grupo']==true && $filas['semestre'] <=6){
+    ?>
+    <button type="button" class="btn btn-primary " disabled data-toggle="modal" data-target="#example<?php echo $filas['id_grupos']; ?>">
+    Grupo asignado
+</button></td>
+
+<?php
+}else{
+    ?>
+
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#example<?php echo $filas['id']; ?>">
-        Asignar tutor
-    </button></td>
+    Asignar grupo
+</button></td>
+<?php
+
+}
+?>
 
 
+
+   
 
 
 
@@ -71,10 +90,9 @@
                                     while ($resultado_query = mysqli_fetch_assoc($resultado_tutor)) {
                                     ?>
 
-                                        <option value="<?php echo $resultado_query['id'] ?>">
-                                            <?php echo $resultado_query['nombres'] ?>
-                                            <?php echo $resultado_query['ap_paterno'] ?>
-                                            <?php echo $resultado_query['ap_materno'] ?>
+                                        <option value="<?php echo $resultado_query['id_grupos'] ?>">
+                                            <?php echo $resultado_query['grupo'] ?>
+                                           
                                         </option>
                                     <?php
                                     }

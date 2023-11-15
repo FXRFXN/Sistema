@@ -141,6 +141,9 @@ if (isset($_SESSION['u_usuario']) && $_SESSION['u_privilegio']  == 2) {
   </div>
   <!-- /.content -->
   </div>
+  </div>
+  <!-- /.content -->
+  </div>
   <!-- /.content-wrapper -->
   <?php include('../layout/footer.php'); ?>
   <?php include('../layout/footer_links.php'); ?>

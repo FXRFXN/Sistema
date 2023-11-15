@@ -56,17 +56,31 @@ if (isset($_SESSION['u_usuario'])) {
             <?php include('../layout/menu.php'); ?>
 
             <?php
-            $sql = "SELECT * FROM `tb_incidencia`INNER JOIN tb_tutorias ON tb_tutorias.id=tb_incidencia.id_alumno INNER JOIN tb_claseasesoria 	ON tb_claseasesoria.id_incidencia = tb_incidencia.id_incidencia where tb_incidencia.categoria = 'Asesorias' AND tb_incidencia.Estado = 0; ";
-            $resultado = mysqli_query($conexion, $sql);
+          
+ if(!empty($_REQUEST["nume"])){ $_REQUEST["nume"] = $_REQUEST["nume"];}else{ $_REQUEST["nume"] = '1';}
+ if($_REQUEST["nume"] == "" ){$_REQUEST["nume"] = "1";}
+ $articulos=mysqli_query($conexion,"SELECT * FROM `tb_incidencia`INNER JOIN tb_usuarios ON tb_usuarios.numero_control=tb_incidencia.id_alumno INNER JOIN tb_claseasesoria ON tb_claseasesoria.id_incidencia = tb_incidencia.id_incidencia where tb_incidencia.categoria = 'Asesorias' AND tb_incidencia.Estado =  0;");
+ $num_registros=@mysqli_num_rows($articulos);
+ $registros= '5';
+ $pagina=$_REQUEST["nume"];
+ if (is_numeric($pagina))
+ $inicio= (($pagina-1)*$registros);
+ else
+ $inicio=0;
+ $busqueda=mysqli_query($conexion,"SELECT * FROM `tb_incidencia`INNER JOIN tb_usuarios ON tb_usuarios.numero_control=tb_incidencia.id_alumno INNER JOIN tb_claseasesoria ON tb_claseasesoria.id_incidencia = tb_incidencia.id_incidencia where tb_incidencia.categoria = 'Asesorias' AND tb_incidencia.Estado =  0 LIMIT $inicio,$registros;");
+ $paginas=ceil($num_registros/$registros);
+  
+
+
 
             //pausada
-            $sqli = "SELECT * FROM `tb_incidencia` where Estado = 2";
+            $sqli = "SELECT  Estado FROM `tb_incidencia` where Estado = 2";
             $resultadoo = mysqli_query($conexion, $sqli);
 
             $numeroo = mysqli_num_rows($resultadoo);
 
             //proceso
-            $sqlii = "SELECT * FROM `tb_incidencia` where Estado = 1";
+            $sqlii = "SELECT Estado FROM `tb_incidencia` where Estado = 1";
             $proceso = mysqli_query($conexion, $sqlii);
 
             $numero_proceso = mysqli_num_rows($proceso);
@@ -74,7 +88,7 @@ if (isset($_SESSION['u_usuario'])) {
 
 
             <?php
-            $tutor_sql = "SELECT * FROM `tb_usuarios` WHERE cargo = 1;";
+            $tutor_sql = "SELECT tb_usuarios.numero_control,tb_usuarios.nombres,tb_usuarios.ap_paterno,tb_usuarios.ap_materno,tb_usuarios.semestre,tb_incidencia.id_incidencia,tb_incidencia.id_alumno,tb_incidencia.motivo,tb_incidencia.categoria,tb_incidencia.prioridad,tb_incidencia.Estado,tb_incidencia.timestamp,tb_incidencia.motivo_actualizacion FROM `tb_usuarios` WHERE cargo = 1;";
             $resultado_tutor = mysqli_query($conexion, $tutor_sql);
             ?>
 
@@ -89,7 +103,7 @@ if (isset($_SESSION['u_usuario'])) {
             <div class="content-wrapper">
 
                 <section class="content-header">
-                    <h1>Modulo de Tutorias-Incidencias-Asesorias</h1>
+                    <h1>MODULO DE ASESORIAS</h1>
                 </section>
 
 
@@ -129,7 +143,7 @@ if (isset($_SESSION['u_usuario'])) {
 
 
                                 <?php
-                                while ($filas = mysqli_fetch_assoc($resultado)) {
+                                while ($filas = mysqli_fetch_assoc($busqueda)) {
                                 ?>
 
                                     <tr>
@@ -476,8 +490,38 @@ if (isset($_SESSION['u_usuario'])) {
 
                             </table>
                             </div>
+                            
+<!-- paginacion //////////////////////////////////////-->
+<div class="container-fluid  col-12">
+        <ul class="pagination pg-dark d-flex justify-content-center align-items-center" style="float: none;" >
+            <li class="page-item">
+            <?php
+            if($_REQUEST["nume"] == "1" ){
+            $_REQUEST["nume"] == "0";
+            echo  "";
+            }else{
+            if ($pagina>1)
+            $ant = $_REQUEST["nume"] - 1;
+            echo "<a class='page-link' aria-label='Previous' href='asesorias_info.php?nume=1'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a>"; 
+            echo "<li class='page-item '><a class='page-link' href='asesorias_info.php?nume=". ($pagina-1) ."' >".$ant."</a></li>"; }
+            echo "<li class='page-item active'><a class='page-link' >".$_REQUEST["nume"]."</a></li>"; 
+            $sigui = $_REQUEST["nume"] + 1;
+            $ultima = $num_registros / $registros;
+            if ($ultima == $_REQUEST["nume"] +1 ){
+            $ultima == "";}
+            if ($pagina<$paginas && $paginas>1)
+            echo "<li class='page-item'><a class='page-link' href='asesorias_info.php?nume=". ($pagina+1) ."'>".$sigui."</a></li>"; 
+            if ($pagina<$paginas && $paginas>1)
+            echo "
+            <li class='page-item'><a class='page-link' aria-label='Next' href='asesorias_info.php?nume=". ceil($ultima) ."'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a>
+            </li>";
+            ?>
+        </ul>
+    </div>
+<!-- end paginacion ///////////////////////// -->
                         </div>
                 </section>
+            
 
             </div>
 

@@ -61,7 +61,6 @@ if (isset($_SESSION['u_usuario'])) {
   </head>
 
   <body class="hold-transition skin-blue sidebar-mini">
-
   <?php
 if (isset($_GET['id'])) {
     $numero_control_encriptado = urldecode($_GET['id']);
@@ -74,11 +73,14 @@ if (isset($_GET['id'])) {
 ?>
     
     <?php 
-  $sql= "SELECT  nombres,ap_paterno,ap_materno,numero_control,carrera,semestre FROM tb_usuarios where numero_control = '{$numero_control}'";
+   $sql = "SELECT  nombres,ap_paterno,ap_materno,numero_control,carrera,semestre FROM tb_usuarios WHERE numero_control = '{$numero_control}'";
   $resultado = mysqli_query($conexion,$sql);
-
   ?>
-  
+
+<?php 
+  $sqli= "SELECT semestre_cursado,estado_acreditacion,ciclo_escolar FROM cursadas where id_alumno = '{$numero_control}'";
+  $resultadoi = mysqli_query($conexion,$sqli);
+  ?>
     
       <?php include('../layout/menu.php'); ?>
 
@@ -133,85 +135,45 @@ if (isset($_GET['id'])) {
 <div class="panel panel-primary">
    
         
-   <div class="panel-heading">Historial de incidencia de alumno</div>
+   <div class="panel-heading">Historial de tutorias de alumno</div>
    <div class="panel-body">
    <table class="table table-bordered table-hover table-condensed">
   
-   <th>Numero de control</th>
-   <th>Motivo</th>
-   <th>Categoria</th>
-   <th>Fecha y hora de incidencia</th>
-   
-        
-  
-  <?php 
+   <th>Semestre cursado</th>
+   <th>Estado</th>
+   <th>Ciclo escolar</th>
 
-  
-  $sql="SELECT id_alumno,motivo,categoria,timestamp FROM `tb_incidencia` WHERE id_alumno = '{$numero_control}' ";
-  $resultado = mysqli_query($conexion,$sql);
-
-
-
-  if(!empty($_REQUEST["nume"])){ $_REQUEST["nume"] = $_REQUEST["nume"];}else{ $_REQUEST["nume"] = '1';}
- if($_REQUEST["nume"] == "" ){$_REQUEST["nume"] = "1";}
- $articulos=mysqli_query($conexion,"SELECT id_alumno,motivo,categoria,timestamp FROM `tb_incidencia` WHERE id_alumno = '{$numero_control}'");
- $num_registros=@mysqli_num_rows($articulos);
- $registros= '5';
- $pagina=$_REQUEST["nume"];
- if (is_numeric($pagina))
- $inicio= (($pagina-1)*$registros);
- else
- $inicio=0;
- $busqueda=mysqli_query($conexion,"SELECT id_alumno,motivo,categoria,timestamp FROM `tb_incidencia` WHERE id_alumno = '{$numero_control}' LIMIT $inicio,$registros;");
- $paginas=ceil($num_registros/$registros);
-  
-  ?>
-                            <?php
-      while($filas = mysqli_fetch_assoc($busqueda)){
+                                             
+   <?php
+      while($filass = mysqli_fetch_assoc($resultadoi)){
 ?>
+     <tr>
+       <td>
+        <?php echo $filass['semestre_cursado']?></td>
+       <td><?php if($filass['estado_acreditacion']==1){
+        echo "Acreditado";
+       }else{
+        echo "No acreditado";
+       }
+       
+       ?>
       
-      <tr>
       
-      <td><?php echo $filas['id_alumno']?></td>
-      <td><?php echo $filas['motivo']?></td>
-      <td><?php echo $filas['categoria']?></td>
-      <td><?php echo $filas['timestamp']?></td>
-      </tr>
-      <?php
+      </td>
+       <td><?php echo $filass['ciclo_escolar']?></td>
+
+
+     </tr>
+
+
+    <?php
     }
-    ?>    
-    
+    ?>
+
+      
+     
     </table>
 </div>
-
-<!-- paginacion //////////////////////////////////////-->
-<div class="container-fluid  col-12">
-        <ul class="pagination pg-dark d-flex justify-content-center align-items-center" style="float: none;" >
-            <li class="page-item">
-            <?php
-            if($_REQUEST["nume"] == "1" ){
-            $_REQUEST["nume"] == "0";
-            echo  "";
-            }else{
-            if ($pagina>1)
-            $ant = $_REQUEST["nume"] - 1;
-            echo "<a class='page-link' aria-label='Previous' href='historial_incidencia_alumno.php?nume=1'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a>"; 
-            echo "<li class='page-item '><a class='page-link' href='historial_incidencia_alumno.php?nume=". ($pagina-1) ."' >".$ant."</a></li>"; }
-            echo "<li class='page-item active'><a class='page-link' >".$_REQUEST["nume"]."</a></li>"; 
-            $sigui = $_REQUEST["nume"] + 1;
-            $ultima = $num_registros / $registros;
-            if ($ultima == $_REQUEST["nume"] +1 ){
-            $ultima == "";}
-            if ($pagina<$paginas && $paginas>1)
-            echo "<li class='page-item'><a class='page-link' href='historial_incidencia_alumno.php?nume=". ($pagina+1) ."'>".$sigui."</a></li>"; 
-            if ($pagina<$paginas && $paginas>1)
-            echo "
-            <li class='page-item'><a class='page-link' aria-label='Next' href='historial_incidencia_alumno.php?nume=". ceil($ultima) ."'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a>
-            </li>";
-            ?>
-        </ul>
-    </div>
-<!-- end paginacion ///////////////////////// -->
 </section>
 </div>
 

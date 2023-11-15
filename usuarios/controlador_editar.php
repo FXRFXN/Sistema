@@ -70,6 +70,8 @@ if (isset($_SESSION['u_usuario'])) {
     $imgBinario = fread($imgSubida, $tamano_img);
 
     $imgBinario = mysqli_escape_string($conexion, $imgBinario);
+    $semestre = $_POST['semestre'];
+    $grupo = $_POST['grupo'];
 
     // ---------------------------------------------
     //$nombre_de_foto_perfil = "SisTECNM-" . date('Y-m-d-h-i-s');
@@ -79,7 +81,7 @@ if (isset($_SESSION['u_usuario'])) {
 
     //move_uploaded_file($_FILES['file']['tmp_name'], $location);
 
-    $edita = "UPDATE tb_usuarios SET sexo='$sexo', carrera='$carrera', estado_civil='$estado_civil', telefono='$telefono', ciudad='$ciudad', colonia='$colonia', calle='$calle', codigo_postal='$codigo_postal', curp='$curp', fecha_nacimiento='$fecha_nacimiento', nivel_escolar='$nivel_escolar', reticula='$reticula', entidad='$entidad', fyh_actualizacion='$fechaHora', foto_perfil='$name_img', foto='$imgBinario' WHERE id = '$id'";
+    $edita = "UPDATE tb_usuarios SET sexo='$sexo', carrera='$carrera', estado_civil='$estado_civil', telefono='$telefono', ciudad='$ciudad', colonia='$colonia', calle='$calle', codigo_postal='$codigo_postal', curp='$curp', fecha_nacimiento='$fecha_nacimiento', nivel_escolar='$nivel_escolar', reticula='$reticula', entidad='$entidad', fyh_actualizacion='$fechaHora', foto_perfil='$name_img', foto='$imgBinario' ,semestre = '$semestre', grupo='$grupo' WHERE id = '$id'";
     $resultado = mysqli_query($conexion, $edita);
     if (!$resultado) {
       echo 'Error al actualizar';

@@ -6,9 +6,11 @@ if (isset($_POST['ciclo'])){
 	
 	
 	$ciclo=$_POST['ciclo'];
+	$fecha = $_POST['fecha_inicio'];
+	$fecha_fin = $_POST['fecha_fin'];
     
     
-	$sql = "INSERT INTO tb_ciclos(ciclo_escolar) VALUES ('$ciclo')";
+	$sql = "INSERT INTO tb_ciclos(ciclo_escolar, fecha_inicio, fecha_fin) VALUES ('$ciclo', '$fecha', '$fecha_fin')";
 	
 	
 	echo $sql;

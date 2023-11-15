@@ -8,12 +8,11 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!-- Bootstrap 3.3.6 -->
 
-<link rel="stylesheet" href="../usuarios/css/estilos.css">
 
+<link rel="stylesheet" href="../usuarios/css/estilos.css">
 <script src="../usuarios/jquery.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../app/templeates/AdminLTE-2.3.11/bootstrap/css/bootstrap.css">
 <!-- Font Awesome -->

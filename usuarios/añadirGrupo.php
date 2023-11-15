@@ -14,7 +14,7 @@ $id_nombres = $sesion_usuario['nombres'];
 $id_ap_paterno = $sesion_usuario['ap_paterno'];
 $id_ap_materno = $sesion_usuario['ap_materno'];
 $id_sexo = $sesion_usuario['sexo'];
-$id_numero_control = $sesion_usuario['numero_control'];
+$id_gruporo_control = $sesion_usuario['numero_control'];
     $id_carrera = $sesion_usuario['carrera'];
         $id_correo = $sesion_usuario['correo'];
         $id_estado_civil = $sesion_usuario['estado_civil'];
@@ -34,16 +34,38 @@ $id_numero_control = $sesion_usuario['numero_control'];
 
 <!DOCTYPE html>
 <html>
-<?php
-$sql = "SELECT * FROM grupos";
 
-$resultado = mysqli_query($conexion, $sql);
+
+
+<?php
+if(!empty($_REQUEST["grupo"])){ $_REQUEST["grupo"] = $_REQUEST["grupo"];}else{ $_REQUEST["grupo"] = '1';}
+if($_REQUEST["grupo"] == "" ){$_REQUEST["grupo"] = "1";}
+$articulos=mysqli_query($conexion,"SELECT id_grupos,grupo,semestre,carrera,dias_tutoria,hora_inicio,hora_fin,periodo FROM grupos  ;");
+$num_registros=@mysqli_num_rows($articulos);
+$registros= '5';
+$pagina=$_REQUEST["grupo"];
+if (is_numeric($pagina))
+$inicio= (($pagina-1)*$registros);
+else
+$inicio=0;
+$busqueda=mysqli_query($conexion,"SELECT id_grupos,grupo,semestre,carrera,dias_tutoria,hora_inicio,hora_fin,periodo FROM grupos WHERE semestre <= 6 LIMIT $inicio,$registros;");
+$paginas=ceil($num_registros/$registros);
+
 
 ?>
+
+
+
 
 <head>
 <?php include('../layout/head.php'); ?>
 <title>Añadir grupo</title>
+
+<?php
+$ciclos = "SELECT ciclo_escolar,fecha_inicio,fecha_fin FROM tb_ciclos ";
+
+$resultado = mysqli_query($conexion, $ciclos);
+?>
 <link rel="stylesheet" href="../usuarios/estilos.css">
 </head>
 
@@ -58,25 +80,31 @@ $resultado = mysqli_query($conexion, $sql);
 <!-- Content Header (Page header) -->
 <section class="content-header">
 <h1>
-Asignación de tutores al grupo
+CREACION DE GRUPOS
 </section>
 
 
 <div class="container">
 <?php include('../usuarios/modalprueba.php'); ?>
 </div>
+
+<div class="container">
+
+</div>
+
 <!-- Main content -->
 <section class="content">
-<br>
+
 <!-- Listado de incidencias -->
+<a href="grupos_tutorias_finalizadas.php"><button type="button" class="btn btn-success mb-4">Grupos tutorias finalizadas</button></a>
 
 <div class="panel panel-primary">
-
 
 <div class="panel-heading">Listado</div>
 <div class="panel-body">
 <table class="table table-bordered table-hover table-condensed">
 
+<th>Grupo</th>
 <th>Carrera</th>
 <th>Semestre</th>
 <th>Ciclo escolar</th>
@@ -89,23 +117,173 @@ Asignación de tutores al grupo
 
 
 <?php
-while ($filas = mysqli_fetch_assoc($resultado)) {
+while ($filas = mysqli_fetch_assoc($busqueda)) {
 ?>
 
 <tr>
-
+<td><?php echo $filas['grupo'] ?></td>
 <td><?php echo $filas['carrera'] ?></td>
 <td><?php echo $filas['semestre'] ?></td>
-<td><?php echo $filas['periodo'] ?></td>
+
+<td>
+<?php if($filas['periodo']== ' '){?>
+    <h5>Aun no hay un ciclo asignado. Esto se debe a que se realizo la evaluacion de alumnos
+        y debes actualizar la informacion del grupo
+    </h5>
+
+<?php }else{?>
+
+    <?php echo $filas['periodo'] ?>
+    <?php }?>
+</td> 
+
 <td><?php echo $filas['dias_tutoria']?></td>
 <td><?php echo $filas['hora_inicio']?></td>
 <td><?php echo $filas['hora_fin']?></td>
- <td>
- <?php include('../usuarios/modaltutor.php'); ?>
+ 
+<td>
+<?php
+echo "<a id='miEnlace' class='btn btn-success' href='informaciongrupo.php?id=".$filas['id_grupos']."' name='miBoton'>Ver</a>";
+?>
 </td>
 
- <td><a href="informaciongrupo.php"><button type="submit" class="btn btn-success">Ver grupo</button></a></td>
+
+<?php
  
+if($filas['periodo'] != ' '){
+  
+  $enlaceId = 'evaluar_' . $filas['id_grupos'];
+  echo "<td><a id='$enlaceId' class='btn btn-warning' name='miBoton'>Evaluar alumnos</a></td>";
+  
+}
+
+?>
+
+
+
+<?php
+
+if($filas['periodo']== ' '){
+?>
+  <td>
+    <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#example<?php echo $filas['id_grupos']; ?>">
+                                                Actualizar grupo
+                                            </button>
+                                            </td>
+
+  
+<?php
+}
+?>
+
+                                        <div class="modal fade" id="example<?php echo $filas['id_grupos']; ?>" tabindex="-1" aria-labelledby="example" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="example">Actualización de Incidencia</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+
+                                                    </div>
+
+
+                                                    <form method="post" action="actualizar_grupo.php" class="actualizar_grupo">
+                                                        <input type="hidden" name="id_grupo" value="<?php echo $filas['id_grupos']; ?>">
+
+                                                        <div class="modal-body" id="">
+
+                                                        
+                                                            <div class="row">
+                                                            <div class="col">
+                <div class="form-group" class="col-sm2 control-label">
+                  <label for="prioridad">Seleccionar ciclo escolar</label>
+                  <select name="ciclo_escolar" id="" class="form-control" required>
+                  <option value="">Seleccionar ciclo escolar</option>
+                    <?php
+                    while ($filaResultado = mysqli_fetch_assoc($resultado)) {
+                    ?>
+
+                      <option value="<?php echo $filaResultado['ciclo_escolar'] ?>"> <?php echo $filaResultado['ciclo_escolar'] ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+
+                <div class="form-group" class="col-sm2 control-label">
+                  <label for="semestre">Semestre</label>
+                  <div>
+                    <select name="semestre" id="" class="form-control">
+                      <option value="">Selecciona una opcion</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col">
+                <div class="form-group" class="col-sm2 control-label">
+                  <label for="categoria">Dias tutoria</label>
+                  <select name="dias_tutoria" id="" class="form-control">
+                    <option value="">Selecciona una opcion</option>
+                    <option value="LUNES">LUNES</option>
+                    <option value="MARTES">MARTES</option>
+                    <option value="MIERCOLES">MIERCOLES</option>
+                    <option value="JUEVES">JUEVES</option>
+                    <option value="VIERNES">VIERNES</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+              <div class="col">
+                <div class="form-group" class="col-sm2 control-label">
+                  <label for="categoria">Hora inicio tutoria</label>
+                  <input type="time" name="inicio_tutoria" value="" class="form-control">
+                </div>
+              </div>
+
+
+
+              <div class="col">
+                <div class="form-group" class="col-sm2 control-label">
+                  <label for="categoria">Hora de fin tutoria</label>
+                  <input type="time" name="fin_tutoria" value="" class="form-control">
+                </div>
+              </div>
+            </div>
+
+
+              </div>
+              </div>
+
+              <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success" value="Registrar">Guardar</button>
+          </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                        </div>
+                    </div>
+
+                    <div>
+</td>
+
 
 
 
@@ -120,6 +298,34 @@ while ($filas = mysqli_fetch_assoc($resultado)) {
 
 </table>
 </div>
+<!-- paginacion //////////////////////////////////////-->
+<div class="container-fluid  col-12">
+        <ul class="pagination pg-dark pagination pg-dark d-flex justify-content-center align-items-center" style="float: none;" >
+            <li class="page-item">
+            <?php
+            if($_REQUEST["grupo"] == "1" ){
+            $_REQUEST["grupo"] == "0";
+            echo  "";
+            }else{
+            if ($pagina>1)
+            $ant = $_REQUEST["grupo"] - 1;
+            echo "<a class='page-link' aria-label='Previous' href='añadirGrupo.php?grupo=1'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a>"; 
+            echo "<li class='page-item '><a class='page-link' href='añadirGrupo.php?grupo=". ($pagina-1) ."' >".$ant."</a></li>"; }
+            echo "<li class='page-item active'><a class='page-link' >".$_REQUEST["grupo"]."</a></li>"; 
+            $sigui = $_REQUEST["grupo"] + 1;
+            $ultima = $num_registros / $registros;
+            if ($ultima == $_REQUEST["grupo"] +1 ){
+            $ultima == "";}
+            if ($pagina<$paginas && $paginas>1)
+            echo "<li class='page-item'><a class='page-link' href='añadirGrupo.php?grupo=". ($pagina+1) ."'>".$sigui."</a></li>"; 
+            if ($pagina<$paginas && $paginas>1)
+            echo "
+            <li class='page-item'><a class='page-link' aria-label='Next' href='añadirGrupo.php?grupo=". ceil($ultima) ."'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a>
+            </li>";
+            ?>
+        </ul>
+    </div>
+<!-- end paginacion ///////////////////////// -->
 </div>
 </section>
 
@@ -127,47 +333,58 @@ while ($filas = mysqli_fetch_assoc($resultado)) {
 
 
 
-
 <script>
-    $('.actualizar_grupo').submit(function(e){
+    // Selecciona los enlaces que comienzan con "evaluar_"
+    $('a[id^="evaluar_"]').click(function(e) {
         e.preventDefault();
         Swal.fire({
-  title: '¿ESTAS SEGURO QUE DESEAS GUARDAR EL GRUPO?',
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'SI, DESEO GUARDAR'
-}).then((result) => {
-  if (result.isConfirmed) {
-   this.submit();  
-  }
-})
-
+            title: '¿ESTÁS SEGURO QUE DESEAS REALIZAR LA EVALUACION DE LOS ALUMNOS?',
+            text: 'Una vez realizado debes de evaluar a todos los alumnos',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SÍ, DESEO EVALUAR'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Obtiene el ID_DEL_GRUPO desde el id del enlace
+                var enlaceId = $(this).attr('id');
+                var idDelGrupo = enlaceId.replace('evaluar_', '');
+                // Realiza la acción deseada, como redirigir al usuario
+                window.location.href = 'evaluacion_alumnos.php?id=' + idDelGrupo;
+            }
+        });
     });
 </script>
 
-
 <script>
-    $('.asignar_tutor').submit(function(e){
-        e.preventDefault();
-        Swal.fire({
-  title: '¿ESTAS SEGURO QUE DESEAS ASIGNAR EL TUTOR A ESTE GRUPO?',
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'SI, DESEO GUARDAR'
-}).then((result) => {
-  if (result.isConfirmed) {
-   this.submit();  
-  }
-})
+            $('.actualizar_grupo').submit(function(e) {
+      e.preventDefault();
+      Swal.fire({
+        title: '¿DESEAS ACTUALIZAR LA INFORMACION DEL GRUPO?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'SI, DESEO ACTUALIZAR'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'CAMBIOS GUARDADOS CORRECTAMENTE',
+            icon: 'success',
+            showConfirmButton: false,
+          })
+          setTimeout(() => {
+            this.submit();
+          }, "1000")
+
+        }
+
+      })
 
     });
-</script>
 
-
+        </script>
 
 
 

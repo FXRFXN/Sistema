@@ -12,7 +12,7 @@ if($_POST["buscar"] == null  ){
 
 }else{
 
-$buscardor = mysqli_query($conexion, "SELECT * FROM tb_tutorias WHERE id LIKE LOWER('" . $_POST["buscar"] . "') ");
+$buscardor = mysqli_query($conexion, "SELECT nombres,numero_control,ap_paterno,ap_materno,carrera,semestre FROM tb_usuarios WHERE numero_control LIKE LOWER('" . $_POST["buscar"] . "') ");
 $numero = mysqli_num_rows($buscardor);
 ?>
 

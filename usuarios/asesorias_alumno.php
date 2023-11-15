@@ -3,8 +3,7 @@ include('../app/config/config.php');
 session_start();
 
 
-
-if (isset($_SESSION['u_usuario'])) {
+if (isset($_SESSION['u_usuario']) && $_SESSION['u_privilegio']  == 2 ) {
   //echo "existe sesión";
   //echo "bienvenido usuario";
   $correo_sesion = $_SESSION['u_usuario'];
@@ -34,25 +33,15 @@ if (isset($_SESSION['u_usuario'])) {
     $id_foto_perfil = $sesion_usuario['foto_perfil'];
   }
 
-
-
-
-
 ?>
 
   <?php
-  $sqlito =
-    ("SELECT * FROM tb_claseasesoria INNER JOIN tb_tutorias ON tb_tutorias.id = tb_claseasesoria.id_alumnoo INNER JOIN tb_usuarios ON tb_usuarios.id = tb_claseasesoria.id_asesor WHERE id_alumnoo = $id_numero_control ");
-
-
-
-
+  $sqlito = "SELECT * FROM tb_claseasesoria INNER JOIN tb_usuarios ON tb_usuarios.id = tb_claseasesoria.id_asesor WHERE tb_claseasesoria.id_alumnoo = $id_numero_control ";
 
   $resultado = mysqli_query($conexion, $sqlito);
 
 
   ?>
-
 
 
   <!DOCTYPE html>
@@ -90,7 +79,6 @@ if (isset($_SESSION['u_usuario'])) {
 
                 <th>TEMA</th>
                 <th>ASIGNATURA</th>
-
                 <th>HORARIO DE ASESORIA</th>
                 <th>DIAS ASESORIA</th>
                 <th>PROFESOR</th>
@@ -154,7 +142,7 @@ if (isset($_SESSION['u_usuario'])) {
                     <td>
                       <?php
                       if ($filas['observacion_finalizada'] == null) {  ?>
-                        '<span class="rounded-pill badge badgedefault bg-red px-3">Sin informacion</span>
+                        <span class="rounded-pill badge badgedefault bg-red px-3">Sin informacion</span>
 
                       <?php } else { ?>
 
@@ -163,42 +151,25 @@ if (isset($_SESSION['u_usuario'])) {
                       <?php } ?>
                     </td>
 
-
-
-
-
-
                   </tr>
-
-
-
-
-
-
-
-
-
-                  <!-- Button trigger modal -->
-
-
-                  <!-- Modal -->
-
-
-                  <!-- /.content -->
                 <?php
 
                 }
 
-
                 ?>
             </div>
-
+          </div>
+        
+          </table>
+          </div>
+          </div>
+          
 
           </div>
-          <!-- /.content-wrapper -->
+       
 
-
-          </table>
+          <?php include('../layout/footer.php'); ?>
+        <?php include('../layout/footer_links.php'); ?>
 
 
   </body>

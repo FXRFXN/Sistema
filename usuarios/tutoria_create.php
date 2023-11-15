@@ -2,7 +2,7 @@
 
 include ('../app/config/config.php');
 
-if (isset($_POST['id_alumno']) && isset($_POST['nombre'])&& isset($_POST['apellidopaterno']) && isset($_POST['apellidomaterno'])&& isset($_POST['semestre']) && isset($_POST['carrera']) && isset($_POST['estado'])){
+if (isset($_POST['id_alumno']) && isset($_POST['nombre'])&& isset($_POST['apellidopaterno']) && isset($_POST['apellidomaterno'])&& isset($_POST['semestre']) && isset($_POST['carrera'])){
 	
 	$id_alumno = $_POST['id_alumno'];
 	$nombres=$_POST['nombre'];
@@ -10,9 +10,10 @@ if (isset($_POST['id_alumno']) && isset($_POST['nombre'])&& isset($_POST['apelli
     $ap_materno=$_POST['apellidomaterno'];
     $semestre=$_POST['semestre'];
     $carrera=$_POST['carrera'];
-    $estado=$_POST['estado'];
+	$grupo = $_POST['grupo'];
+   
 
-	$sql = "INSERT INTO tb_tutorias(id,nombres,ap_paterno,ap_materno,carrera,estado, semestre) VALUES ('$id_alumno','$nombres','$ap_paterno','$ap_materno','$carrera', '$estado','$semestre')";
+	$sql = "INSERT INTO tb_tutorias(id,nombres,ap_paterno,ap_materno,carrera, semestre,grupo) VALUES ('$id_alumno','$nombres','$ap_paterno','$ap_materno','$carrera','$semestre','$grupo')";
 	
 	
 	echo $sql;

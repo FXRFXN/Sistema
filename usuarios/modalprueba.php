@@ -7,13 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <?php
-  $sq = "SELECT * FROM tb_ciclos 
+  $sq = "SELECT ciclo_escolar,id_ciclos FROM tb_ciclos 
  ";
 
   $result = mysqli_query($conexion, $sq);
 
 
-  $carrera = "SELECT * FROM cat_carreras; 
+  $carrera = "SELECT id_carrera,carrera FROM cat_carreras; 
  ";
 
   $result_carrera = mysqli_query($conexion, $carrera);
@@ -22,7 +22,7 @@
 </head>
 
 <body>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
     Nuevo Grupo
   </button>
 
@@ -109,7 +109,12 @@
                   </select>
                 </div>
               </div>
-
+              <div class="col">
+                <div class="form-group" class="col-sm2 control-label">
+                  <label for="grupito">Grupo</label>
+                  <input type="text" name="grupito" id="grupito" class="form-control" >
+                </div> 
+               </div>
 
             </div>
 

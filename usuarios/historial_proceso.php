@@ -43,11 +43,28 @@ $correo_sesion = $_SESSION['u_usuario'];
   <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
   <?php 
-  $sql= "SELECT * FROM tb_incidencia WHERE Estado = '1'";
+  $sql= "SELECT Estado FROM tb_incidencia WHERE Estado = '2'";
   
   $resultado = mysqli_query($conexion,$sql);
 
   $numero = mysqli_num_rows($resultado); 
+
+  
+ if(!empty($_REQUEST["nume"])){ $_REQUEST["nume"] = $_REQUEST["nume"];}else{ $_REQUEST["nume"] = '1';}
+ if($_REQUEST["nume"] == "" ){$_REQUEST["nume"] = "1";}
+ $articulos=mysqli_query($conexion,"SELECT tb_usuarios.ap_paterno,tb_usuarios.ap_materno,tb_usuarios.carrera,tb_usuarios.grupo,tb_usuarios.semestre,tb_incidencia.id_incidencia,tb_incidencia.id_alumno,tb_incidencia.motivo,tb_incidencia.categoria,tb_incidencia.prioridad,tb_incidencia.Estado,tb_incidencia.timestamp FROM tb_incidencia WHERE Estado = '1';");
+ $num_registros=@mysqli_num_rows($articulos);
+ $registros= '5';
+ $pagina=$_REQUEST["nume"];
+ if (is_numeric($pagina))
+ $inicio= (($pagina-1)*$registros);
+ else
+ $inicio=0;
+ $busqueda=mysqli_query($conexion,"SELECT tb_incidencia.id_incidencia,tb_incidencia.id_alumno,tb_incidencia.motivo,tb_incidencia.categoria,tb_incidencia.prioridad,tb_incidencia.Estado,tb_incidencia.timestamp FROM tb_incidencia WHERE Estado = '1' LIMIT $inicio,$registros;");
+ $paginas=ceil($num_registros/$registros);
+ 
+  
+  
 
   ?>
   <?php include ('../layout/menu.php'); ?>
@@ -58,7 +75,7 @@ $correo_sesion = $_SESSION['u_usuario'];
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Incidencias
+        INCIDENCIAS EN PROCESO
       </h1>
      
     </section>
@@ -66,9 +83,18 @@ $correo_sesion = $_SESSION['u_usuario'];
     <!-- Main content -->
     <section class="content"> 
 
+<?php
+$consulta_incidencia= "SELECT Estado FROM tb_incidencia WHERE Estado = '0'";
+  
+$resultado_Estado = mysqli_query($conexion,$consulta_incidencia);
 
-  <a href="incidencias.php">  <button type="button" class="btn btn-success">Incidencia iniciada: <?php echo $numero ?></button></a>
-  <a href="historial_detenido.php">  <button type="button" class="btn btn-danger">Incidencia detenido: <?php echo $numero ?></button></a>
+$incidencia_iniciada = mysqli_num_rows($resultado_Estado); 
+
+
+?>
+  <a href="incidencias.php">  <button type="button" class="btn btn-success mb-3">INCIDENCIA INCIADA: <?php echo $incidencia_iniciada ?></button></a>
+  <a href="historial_detenido.php">  <button type="button" class="btn btn-danger mb-3" >INCIDENCIA PAUSADA: <?php echo $numero ?></button></a>
+  
                   <!-- Modal -->
 
   <!-- Listado de incidencias -->
@@ -91,7 +117,7 @@ $correo_sesion = $_SESSION['u_usuario'];
 
                             
 <?php
-      while($filas = mysqli_fetch_assoc($resultado)){
+      while($filas = mysqli_fetch_assoc($busqueda)){
 ?>
       
       <tr>
@@ -239,6 +265,32 @@ echo '<span class="rounded-pill badge badge-warning bg-yellow px-3">En proceso</
 
 </table>
 </div>
+<div class="container-fluid  col-12">
+        <ul class="pagination pg-dark d-flex justify-content-center align-items-center" style="float: none;" >
+            <li class="page-item">
+            <?php
+            if($_REQUEST["nume"] == "1" ){
+            $_REQUEST["nume"] == "0";
+            echo  "";
+            }else{
+            if ($pagina>1)
+            $ant = $_REQUEST["nume"] - 1;
+            echo "<a class='page-link' aria-label='Previous' href='historial_proceso.php?nume=1'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a>"; 
+            echo "<li class='page-item '><a class='page-link' href='historial_proceso.php?nume=". ($pagina-1) ."' >".$ant."</a></li>"; }
+            echo "<li class='page-item active'><a class='page-link' >".$_REQUEST["nume"]."</a></li>"; 
+            $sigui = $_REQUEST["nume"] + 1;
+            $ultima = $num_registros / $registros;
+            if ($ultima == $_REQUEST["nume"] +1 ){
+            $ultima == "";}
+            if ($pagina<$paginas && $paginas>1)
+            echo "<li class='page-item'><a class='page-link' href='historial_proceso.php?nume=". ($pagina+1) ."'>".$sigui."</a></li>"; 
+            if ($pagina<$paginas && $paginas>1)
+            echo "
+            <li class='page-item'><a class='page-link' aria-label='Next' href='historial_proceso.php?nume=". ceil($ultima) ."'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a>
+            </li>";
+            ?>
+        </ul>
+    </div>
 </div>
 </section>
 
