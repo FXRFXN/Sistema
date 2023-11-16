@@ -95,7 +95,7 @@
 
                   <p>
                     <?php echo $id_nombres . " " . $id_ap_paterno . " " . $id_ap_materno; ?> - <?php echo $id_carrera; ?>
-                    <small><?php echo $id_numero_control; ?></small>
+                    <small></small>
                   </p>
                 </li>
 
