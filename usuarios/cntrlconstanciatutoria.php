@@ -44,7 +44,7 @@ $sql = "INSERT INTO constancias_tutorias (jefe,
 $guardar = mysqli_query($conexion, $sql);
 //verificamos la ejecucion
 if (!$guardar) {
-  echo '<script language="javascript">alert("No se pudo guardar la constancia");window.location.href="cntrlcponstanciatutoria.php"</script>';
+  echo '<script language="javascript">alert("No se pudo guardar la constancia");window.location.href="cntrlconstanciatutoria.php"</script>';
 } else {
   echo '<script language="javascript">window.location.href="cntrlconstanciatutoria.php"</script>';
 }
