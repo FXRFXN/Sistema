@@ -49,7 +49,7 @@ $correo_sesion = $_SESSION['u_usuario'];
 <?php 
  if(!empty($_REQUEST["nume"])){ $_REQUEST["nume"] = $_REQUEST["nume"];}else{ $_REQUEST["nume"] = '1';}
  if($_REQUEST["nume"] == "" ){$_REQUEST["nume"] = "1";}
- $articulos=mysqli_query($conexion,"SELECT nombres,ap_paterno,ap_materno,numero_control,carrera,semestre,grupo FROM tb_usuarios where cargo = 2 ;");
+ $articulos=mysqli_query($conexion,"SELECT tb_usuarios.nombres,tb_usuarios.ap_paterno,tb_usuarios.ap_materno,tb_usuarios.numero_control,tb_usuarios.carrera,tb_usuarios.semestre,tb_usuarios.grupo,grupos.id_grupos,grupos.grupo FROM tb_usuarios inner join grupos on tb_usuarios.grupo = grupos.id_grupos WHERE cargo = 2;");
  $num_registros=@mysqli_num_rows($articulos);
  $registros= '5';
  $pagina=$_REQUEST["nume"];
@@ -57,7 +57,7 @@ $correo_sesion = $_SESSION['u_usuario'];
  $inicio= (($pagina-1)*$registros);
  else
  $inicio=0;
- $busqueda=mysqli_query($conexion,"SELECT nombres,ap_paterno,ap_materno,numero_control,carrera,semestre,grupo FROM tb_usuarios WHERE cargo = 2 LIMIT $inicio,$registros;");
+ $busqueda=mysqli_query($conexion,"SELECT tb_usuarios.nombres,tb_usuarios.ap_paterno,tb_usuarios.ap_materno,tb_usuarios.numero_control,tb_usuarios.carrera,tb_usuarios.semestre,tb_usuarios.grupo,grupos.id_grupos,grupos.grupo FROM tb_usuarios inner join grupos on tb_usuarios.grupo = grupos.id_grupos WHERE cargo = 2 LIMIT $inicio,$registros;");
  $paginas=ceil($num_registros/$registros);
   
   ?>
