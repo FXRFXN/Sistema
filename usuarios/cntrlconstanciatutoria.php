@@ -41,11 +41,21 @@ $sql = "INSERT INTO constancias_tutorias (jefe,
 
 //ejecutamos sql
 
-$guardar = mysqli_query($conexion, $sql);
-//verificamos la ejecucion
-if (!$guardar) {
-  echo '<script language="javascript">alert("No se pudo guardar la constancia");window.location.href="cntrlconstanciatutoria.php"</script>';
-} else {
-  echo '<script language="javascript">window.location.href="cntrlconstanciatutoria.php"</script>';
+
+echo $sql;
+    
+$query = $bdd->prepare($sql);
+if ($query == false) {
+    print_r($bdd->errorInfo());
+    die('Erreur prepare');
 }
-mysqli_close($conexion);
+
+$sth = $query->execute();
+
+if ($sth == false) {
+    print_r($query->errorInfo());
+    die('Erreur execute');
+}
+
+header('Location: tutoria_constancia.php');
+
