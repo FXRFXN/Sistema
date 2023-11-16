@@ -215,13 +215,13 @@
           <li><a href="lista_tutoria.php"><i class="fa fa-users"></i> <span>Lista de alumnos</span></a></li>
 
           <li class="header">Programa institucional de Tutorias</li>
-          <li><a href="añadirGrupo.php"><i class="fa fa-users"></i> <span>Asignacion de grupo</span></a></li>
+          <li><a href="anadirGrupo.php"><i class="fa fa-users"></i> <span>Asignacion de grupo</span></a></li>
 
           <li class="header">Incidencias</li>
           <li><a href="incidencias.php"><i class="fa fa-users"></i> <span>Alta de Incidencia</span></a></li>
 
           <li class="header">Asesores</li>
-          <li><a href="añadirTutor.php"><i class="fa fa-users"></i> <span>Asignacion de Asesores</span></a></li>
+          <li><a href="anadirTutor.php"><i class="fa fa-users"></i> <span>Asignacion de Asesores</span></a></li>
 
           <li class="header">Constancias de Act. Tutorías</li>
           
