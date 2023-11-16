@@ -31,4 +31,4 @@ if (isset($_POST['periodo']) && isset($_POST['carrera'])&& isset($_POST['semestr
 	}
 
 }
-header('Location: añadirGrupo.php');
+header('Location: anadirGrupo.php');
