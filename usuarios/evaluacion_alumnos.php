@@ -281,7 +281,7 @@ if (isset($_SESSION['u_usuario'])) {
                                                                     
                                                             <div class="form-group" class="col-sm2 control-label">
                                                                 <label for="status">Seleccionar estado</label>
-                                                                <select name="acreditacion" id="status" class="form-control">
+                                                                <select name="acreditacion" id="status" class="form-control" >
                                                                     <option value="">Elegir una Opcion</option>
                                                                     <option value="1" <?= (isset($incidencia) && $incidencia == 1) ? 'selected' : '' ?>>Acreditado</option>
                                                                     <option value="0" <?= (isset($incidencia) && $incidencia == 2) ? 'selected' : '' ?>>No acreditado</option>
@@ -319,78 +319,8 @@ if (isset($_SESSION['u_usuario'])) {
                     </div>
             </div>
 
-            <div class="modal fade" id="example" tabindex="-1" aria-labelledby="example" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="example">Actualización de Incidencia</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-
-                                    </div>
-
-
-                                    <form method="POST" action="cumplimiento_tutoria.php" class="actualizar_incidencia">
-                                        <input type="hidden" name="id" value="<?php echo $filas['id']; ?>">
-                                        <input type="hidden" name="semestre" value="<?php echo $filas['semestre']; ?>">
-                                        <input type="hidden" name="periodo" value="<?php echo $filas['periodo']; ?>">
-                                        <input type="hidden" name="grupos" value="<?php echo $filas['id_grupos']; ?>">
-                                        <div class="modal-body" id="">
-  
-                                            <div class="row">
-                                                <div class="col">
-
-                                                <div class="form-group">
-                                                        <label name="matricula">Matricula:</label>
-                                                        <?php echo $filas['id']; ?>
-                       
-
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label name="semestre">Semestre:</label>
-                                                        <?php echo $filas['semestre']; ?>
-                       
-
-                                                    </div>
-
+        
                                                     
-
-                                                    
-                                            <div class="form-group" class="col-sm2 control-label">
-                                                <label for="status">Seleccionar estado</label>
-                                                <select name="acreditacion" id="status" class="form-control">
-                                                    <option value="">Elegir una Opcion</option>
-                                                    <option value="acreditado" <?= (isset($incidencia) && $incidencia == 1) ? 'selected' : '' ?>>Acreditado</option>
-                                                    <option value="noacreditado" <?= (isset($incidencia) && $incidencia == 2) ? 'selected' : '' ?>>No acreditado</option>
-                                                    
-
-
-
-                                                </select>
-                                                </div>
-
-
-                                                
-
-
-
-
-
-
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                                        <button type="submit" class="btn btn-success btn_btn" value="Actualizar">Guardar</button>
-                                                    </div>
-
-
-                                                </div>
-                                    </form>
-                                </div>                          
-   
-
-                                </div>   
             </section>
 
         </div>
