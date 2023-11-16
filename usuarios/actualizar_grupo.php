@@ -34,5 +34,5 @@ if (isset($_POST['id_grupo']) ){
 	}
 
 }
-header('Location: añadirGrupo.php');
+header('Location: anadirGrupo.php');
  
