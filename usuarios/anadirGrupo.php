@@ -309,18 +309,18 @@ if($filas['periodo']== ' '){
             }else{
             if ($pagina>1)
             $ant = $_REQUEST["grupo"] - 1;
-            echo "<a class='page-link' aria-label='Previous' href='añadirGrupo.php?grupo=1'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a>"; 
-            echo "<li class='page-item '><a class='page-link' href='añadirGrupo.php?grupo=". ($pagina-1) ."' >".$ant."</a></li>"; }
+            echo "<a class='page-link' aria-label='Previous' href='anadirGrupo.php?grupo=1'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Previous</span></a>"; 
+            echo "<li class='page-item '><a class='page-link' href='anadirGrupo.php?grupo=". ($pagina-1) ."' >".$ant."</a></li>"; }
             echo "<li class='page-item active'><a class='page-link' >".$_REQUEST["grupo"]."</a></li>"; 
             $sigui = $_REQUEST["grupo"] + 1;
             $ultima = $num_registros / $registros;
             if ($ultima == $_REQUEST["grupo"] +1 ){
             $ultima == "";}
             if ($pagina<$paginas && $paginas>1)
-            echo "<li class='page-item'><a class='page-link' href='añadirGrupo.php?grupo=". ($pagina+1) ."'>".$sigui."</a></li>"; 
+            echo "<li class='page-item'><a class='page-link' href='anadirGrupo.php?grupo=". ($pagina+1) ."'>".$sigui."</a></li>"; 
             if ($pagina<$paginas && $paginas>1)
             echo "
-            <li class='page-item'><a class='page-link' aria-label='Next' href='añadirGrupo.php?grupo=". ceil($ultima) ."'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a>
+            <li class='page-item'><a class='page-link' aria-label='Next' href='anadirGrupo.php?grupo=". ceil($ultima) ."'><span aria-hidden='true'>&raquo;</span><span class='sr-only'>Next</span></a>
             </li>";
             ?>
         </ul>
