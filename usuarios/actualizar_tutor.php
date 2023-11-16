@@ -44,5 +44,5 @@ if (isset($_POST['tutor']) ){
 	 die ('Erreur execute');
 	}
 }
-header('Location: añadirTutor.php');
+header('Location: anadirTutor.php');
  
