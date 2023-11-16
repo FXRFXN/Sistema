@@ -31,8 +31,6 @@ if (substr($correo, 0, 1) === $letra_especifica) {
     
 }
 
-$estado = 1;
-$cargo = 2;
 
 //
 
