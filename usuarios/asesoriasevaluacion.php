@@ -41,7 +41,7 @@ if (isset($_SESSION['u_usuario'])) {
 ?>
 
   <?php
-  $sqlito ="SELECT * FROM tb_claseasesoria INNER JOIN tb_usuarios ON tb_usuarios.numero_control = tb_claseasesoria.id_alumnoo WHERE id_asesor = 113";
+  $sqlito ="SELECT * FROM tb_claseasesoria INNER JOIN tb_usuarios ON tb_usuarios.numero_control = tb_claseasesoria.id_alumnoo WHERE id_asesor = $id_sesion";
   $resultado = mysqli_query($conexion, $sqlito);
 
   ?>
