@@ -62,4 +62,4 @@ if ($sth == false) {
 }
 mysqli_close($conexion);
 
-header('Location: perfil.php');
+header('Location: ../index.php');
