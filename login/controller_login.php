@@ -39,11 +39,9 @@
         header('Location: ../usuarios/index.php');
       }
     } else if ($privilegio == 2) {
-      if ($carrera == NULL || $ciudad == NULL || $colonia == NULL || $calle == NULL || $C_postal == NULL || $curp == NULL || $nacimiento == NULL || $telefono == NULL) {
+    
         header('Location: ../usuarios/perfil.php');
-      } else {
-        header('Location: ../usuarios/indexuser.php');
-      }
+      
     } else if ($privilegio == 1) {
       if ($carrera == NULL || $ciudad == NULL || $colonia == NULL || $calle == NULL || $C_postal == NULL || $curp == NULL || $nacimiento == NULL || $telefono == NULL) {
         header('Location: ../usuarios/perfil.php');
@@ -52,6 +50,11 @@
       }
     }
   } else {
-    echo "usuario no existe";
-    header('location:../index.php');
+    $_SESSION['error_login'] = '¡Error! Usuario o contraseña incorrectos.';
+    header('Location: ../index.php');
+    exit();
+    
   }
+
+
+  
