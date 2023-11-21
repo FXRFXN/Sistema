@@ -200,6 +200,35 @@ if (isset($_SESSION['u_usuario']) && $_SESSION['u_privilegio']  == 0) {
                           </select>
                         </div>
                         <div class="form-group">
+    <label for=""><i class="glyphicon glyphicon-book"></i> SEMESTRE</label>
+    <select name="semestre" id="" class="form-control" style="text-transform: uppercase;" tabindex="6">
+        <option value="elegir">Elegir una Opción</option>
+        <option value="1" <?php if ($sesion_usuario['semestre'] == 1) echo 'selected'; ?>>1</option>
+        <option value="2" <?php if ($sesion_usuario['semestre'] == 2) echo 'selected'; ?>>2</option>
+        <option value="3" <?php if ($sesion_usuario['semestre'] == 3) echo 'selected'; ?>>3</option>
+        <option value="4" <?php if ($sesion_usuario['semestre'] == 4) echo 'selected'; ?>>4</option>
+        <option value="5" <?php if ($sesion_usuario['semestre'] == 5) echo 'selected'; ?>>5</option>
+        <option value="6" <?php if ($sesion_usuario['semestre'] == 6) echo 'selected'; ?>>6</option>
+        <option value="7" <?php if ($sesion_usuario['semestre'] == 7) echo 'selected'; ?>>7</option>
+    </select>
+</div>
+
+
+<div class="form-group">
+    <label for=""><i class="glyphicon glyphicon-book"></i> GRUPO</label>
+    <select name="grupo" id="" class="form-control" style="text-transform: uppercase;" tabindex="6">
+        <option value=""></option>
+        <?php
+        $consulta1 = "SELECT id_grupos, grupo,semestre FROM grupos where semestre < 7;";
+        $res = mysqli_query($conexion, $consulta1);
+        while ($opcion = mysqli_fetch_assoc($res)) {
+            $selected = ($opcion['id_grupos'] == $sesion_usuario['grupo']) ? 'selected' : '';
+            echo "<option value='{$opcion['id_grupos']}' $selected>{$opcion['grupo']}</option>";
+        }
+        ?>
+    </select>
+</div>
+                        <div class="form-group">
                           <label for=""><i class="glyphicon glyphicon-modal-window"></i> ESTADO CIVIL</label>
                           <select name="estado_civil" class="form-control" required tabindex="8" style="text-transform:uppercase;">
                             <option value="" disabled selected>Selleciona tu estado civil</option>
