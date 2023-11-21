@@ -1,12 +1,31 @@
+<?php
+session_start();
+
+// Verificar si hay un mensaje de error en la variable de sesión
+if (isset($_SESSION['error_login'])) {
+    echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error_login'] . '</div>';
+    // Limpiar la variable de sesión después de mostrarla
+    unset($_SESSION['error_login']);
+}
+?>
 <!DOCTYPE html>
+
+
 <html lang="en">
 
 <head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inicia Sesión</title>
   <link rel="stylesheet" href="login/style.css" />
-  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  
 </head>
 
 <body>
@@ -26,15 +45,15 @@
 
         <div class="info">
           <div class="information">
-            <img src="img/location.png" class="icon" alt="" />
+           
             <p>Calle 11 S/N entre 22 Y 28, Chiná, Camp. México. C.P. 24520</p>
           </div>
           <div class="information">
-            <img src="img/email.png" class="icon" alt="" />
+            
             <p>dir01_china@tecnm.mx</p>
           </div>
           <div class="information">
-            <img src="img/phone.png" class="icon" alt="" />
+            
             <p>(981) 82 7 20 81, 82 y 52 Ext. 101 y 103</p>
           </div>
         </div>
@@ -71,10 +90,10 @@
             <label for="">Contraseña</label>
             <span>Contraseña</span>
           </div>
+       
           <div class="form-group">
-            <input type="submit" value="Ingresar" class="btn btn-primary btn-block">
-            <a href="login/registro.php" class="btn btn-default btn-block">Registrar</a>
-          </div>
+          <input type="submit" value="Ingresar" class="btn btn-primary btn-block">
+     
         </form>
       </div>
     </div>
