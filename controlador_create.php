@@ -1,65 +1,67 @@
 <?php
 
-
-
-
-
-
 include('../app/config/config.php');
 
-$nombres = $_POST['nombres'];
-$ap_paterno = $_POST['ap_paterno'];
-$ap_materno = $_POST['ap_materno'];
-$sexo = $_POST['sexo'];
-$numero_control = $_POST['numero_control'];
-$carrera = $_POST['carrera'];
-$correo = $_POST['correo'];
-$estado_civil = $_POST['estado_civil'];
-$telefono = $_POST['telefono'];
-$ciudad = $_POST['ciudad'];
-$colonia = $_POST['colonia'];
-$calle = $_POST['calle'];
-$codigo_postal = $_POST['codigo_postal'];
-$curp = $_POST['curp'];
-$fecha_nacimiento = $_POST['fecha_nacimiento'];
+$nombres = strtoupper($_POST['nombres']);
+$ap_paterno = strtoupper($_POST['ap_paterno']);
+$ap_materno = strtoupper($_POST['ap_materno']);
+$sexo = strtoupper($_POST['sexo']);
+$numero_control = strtoupper($_POST['numero_control']);
+$carrera = strtoupper($_POST['carrera']);
+$correo = strtoupper($_POST['correo']);
+$estado_civil = strtoupper($_POST['estado_civil']);
+$telefono = strtoupper($_POST['telefono']);
+$ciudad = strtoupper($_POST['ciudad']);
+$colonia = strtoupper($_POST['colonia']);
+$calle = strtoupper($_POST['calle']);
+$codigo_postal = strtoupper($_POST['codigo_postal']);
+$semestre =  strtoupper($_POST['semestre']);
+$grupo = strtoupper($_POST['grupo']);
+$curp = strtoupper($_POST['curp']);
+$fecha_nacimiento = strtoupper($_POST['fecha_nacimiento']);
 //$nivel_escolar = $_POST['nivel_escolar'];
 //$reticula = $_POST['reticula'];
 //$entidad = $_POST['entidad'];
 $contraseña = $_POST['contraseña'];
+$contraseñaConfirm = $_POST['contraseñaConfirm'];
 $user_creacion = "ESCAMILLA";
 
-//encriptar contraseña
-$contraseña = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
+if ($contraseña == $contraseñaConfirm) {
 
-date_default_timezone_set("America/Monterrey");
+  //encriptar contraseña
+  $contraseña = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
 
-$fechaHora = date('Y-m-d h:i:s');
-$estado = '1';
+  date_default_timezone_set("America/Monterrey");
 
-$nombre_de_foto_perfil = "SisTECNM-" . date('Y-m-d-h-i-s');
-$filename = $nombre_de_foto_perfil . "_" . $_FILES['file']['name'];
+  $fechaHora = date('Y-m-d h:i:s');
+  $estado = '1';
 
-$location = "update_usuarios/" . $filename;
+  $nombre_de_foto_perfil = "SisTECNM-" . date('Y-m-d-h-i-s');
+  $filename = $nombre_de_foto_perfil . "_" . $_FILES['file']['name'];
 
-move_uploaded_file($_FILES['file']['tmp_name'], $location);
-//echo $nombres ." - ".$ap_paterno." - ".$ap_materno." - ".$sexo." - ".$numero_control." - ".$carrera." - ".$correo." - ".$estado_civil." - ".$telefono." - ".$ciudad." - ".$colonia." - ".$calle." - ".$codigo_postal." - ".$curp." - ".$fecha_nacimiento." - ".$nivel_escolar." - ".$reticula." - ".$entidad." - ".$contraseña." - ".$user_creacion. " - ".$fechaHora." - ".$estado;
+  $location = "update_usuarios/" . $filename;
 
-$existencia = mysqli_query($conexion, "SELECT correo FROM tb_usuarios where correo='$correo'");
-if ($existencia) {
-  echo '<script language="javascript">alert("El usuario ya existe");window.location.href="create.php";console.log($existencia)</script>';
-  //echo $existencia;
-} else {
-  $inserta = "INSERT INTO tb_usuarios (nombres, ap_paterno, ap_materno, sexo, numero_control, carrera, correo, estado_civil, telefono, ciudad, colonia, calle, codigo_postal, curp, fecha_nacimiento, foto_perfil, contrasenia, cargo, user_creacion, fyh_creacion, estado) VALUES ('$nombres', '$ap_paterno', '$ap_materno', '$sexo', '$numero_control', '$carrera', '$correo', '$estado_civil', '$telefono', '$ciudad', '$colonia', '$calle', '$codigo_postal', '$curp', '$fecha_nacimiento', '$filename', '$contraseña', 2, '$user_creacion', '$fechaHora', '$estado')";
+  move_uploaded_file($_FILES['file']['tmp_name'], $location);
+  //echo $nombres ." - ".$ap_paterno." - ".$ap_materno." - ".$sexo." - ".$numero_control." - ".$carrera." - ".$correo." - ".$estado_civil." - ".$telefono." - ".$ciudad." - ".$colonia." - ".$calle." - ".$codigo_postal." - ".$curp." - ".$fecha_nacimiento." - ".$nivel_escolar." - ".$reticula." - ".$entidad." - ".$contraseña." - ".$user_creacion. " - ".$fechaHora." - ".$estado;
 
-  $resultado = mysqli_query($conexion, $inserta)
-    or die(mysqli_error($conexion));
-  if (!$resultado) {
-    echo '<script language="javascript">alert("No se pudo guardar. Inténtalo de nuevo.");window.location.href="create.php"</script>';
-  } else {
-
-    echo '<script language="javascript">alert("Usuario registrado");window.location.href="create.php"</script>';
-  }
+  $inserta = "INSERT INTO tb_usuarios (nombres, ap_paterno, ap_materno, sexo, numero_control, carrera, correo, estado_civil, telefono, ciudad, colonia, calle, codigo_postal, curp, fecha_nacimiento, foto_perfil, contrasenia,cargo, grupo,semestre,user_creacion, fyh_creacion, estado) VALUES ('$nombres', '$ap_paterno', '$ap_materno', '$sexo', '$numero_control', '$carrera', '$correo', '$estado_civil', '$telefono', '$ciudad', '$colonia', '$calle', '$codigo_postal', '$curp', '$fecha_nacimiento', '$filename', '$contraseña', 2,$grupo,$semestre, '$user_creacion', '$fechaHora', '$estado')";
+  
+    
+$query = $bdd->prepare($inserta);
+if ($query == false) {
+    print_r($bdd->errorInfo());
+    die('Erreur prepare');
 }
+
+$sth = $query->execute();
+
+if ($sth == false) {
+    print_r($query->errorInfo());
+    die('Erreur execute');
+}
+}header('Location: create.php');
+
+
 
 
 
